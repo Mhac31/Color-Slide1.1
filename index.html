@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#101116">
+    <title>COLOR GRID — Endless Color Match</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <div class="ambient-tiles" aria-hidden="true">
+      <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+    </div>
+    <main class="game-shell">
+      <header class="topbar">
+        <a class="brand" href="#" aria-label="Color Grid home">
+          <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <span>COLOR<span class="brand-accent">GRID</span></span>
+        </a>
+        <span class="edition">ENDLESS COLOR MATCH <span aria-hidden="true">✦</span></span>
+      </header>
+
+      <section class="app-screen start-screen" id="start-screen" aria-labelledby="menu-title">
+        <div class="hero-lockup">
+          <span class="hero-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+          <p class="eyebrow"><span class="eyebrow-dot"></span> THE COLORFUL BRAIN-TEASER</p>
+          <h1 id="menu-title">COLOR <span>GRID</span></h1>
+          <p class="intro-copy">Slide into the pattern. Beat the clock. Keep the streak alive.</p>
+        </div>
+        <div class="menu-layout">
+          <div class="menu-primary">
+            <div class="personal-record">
+              <span class="record-icon" aria-hidden="true">★</span>
+              <span><small>PERSONAL BEST</small><strong id="menu-best-score">0</strong></span>
+              <span class="record-caption">YOUR TOP RUN</span>
+            </div>
+            <button class="button button-primary menu-play-button" id="start-button" type="button">
+              <span aria-hidden="true">▶</span> PLAY
+            </button>
+            <p class="menu-footnote">A fresh puzzle is waiting for you</p>
+          </div>
+          <div class="menu-cards">
+            <button class="menu-card" id="how-to-button" type="button">
+              <span class="menu-card-icon" aria-hidden="true">?</span>
+              <span><strong>How to play</strong><small>Learn the moves in a moment</small></span>
+              <span class="card-arrow" aria-hidden="true">→</span>
+            </button>
+            <button class="menu-card" id="settings-button" type="button">
+              <span class="menu-card-icon" aria-hidden="true">⚙</span>
+              <span><strong>Settings</strong><small>Make the game yours</small></span>
+              <span class="card-arrow" aria-hidden="true">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="app-screen secondary-screen" id="how-to-screen" aria-labelledby="how-to-title" hidden>
+        <div class="secondary-card">
+          <p class="eyebrow">QUICK FIELD GUIDE</p>
+          <h1 id="how-to-title" tabindex="-1">How to <span>play</span></h1>
+          <p class="intro-copy">A little strategy goes a long way.</p>
+          <ol class="guide-list">
+            <li><span>01</span><div><strong>Study the target</strong><p>Remember the color pattern shown beside your board.</p></div></li>
+            <li><span>02</span><div><strong>Drag to glide</strong><p>Drag horizontally or vertically through empty cells, then release to snap into place.</p></div></li>
+            <li><span>03</span><div><strong>Match the center</strong><p>Arrange the highlighted center tiles to match the target.</p></div></li>
+            <li><span>04</span><div><strong>Build your streak</strong><p>Matches earn points and time. Each puzzle adds a tile until the board unlocks a larger size.</p></div></li>
+          </ol>
+          <button class="button button-secondary back-button" type="button">← BACK</button>
+        </div>
+      </section>
+
+      <section class="app-screen secondary-screen" id="settings-screen" aria-labelledby="settings-title" hidden>
+        <div class="secondary-card settings-card">
+          <p class="eyebrow">PERSONALIZE YOUR RUN</p>
+          <h1 id="settings-title" tabindex="-1">Game <span>settings</span></h1>
+          <p class="intro-copy">Accessibility options are saved on this device.</p>
+          <label class="colorblind-toggle settings-toggle" for="colorblind-toggle">
+            <input id="colorblind-toggle" type="checkbox" checked>
+            <span class="toggle-track" aria-hidden="true"><span class="toggle-knob"></span></span>
+            <span class="toggle-copy">
+              <strong>Colorblind mode</strong>
+              <span>Show a symbol and letter on every tile</span>
+            </span>
+          </label>
+          <label class="colorblind-toggle settings-toggle" for="sound-toggle-setting">
+            <input id="sound-toggle-setting" type="checkbox">
+            <span class="toggle-track" aria-hidden="true"><span class="toggle-knob"></span></span>
+            <span class="toggle-copy">
+              <strong>Sound effects</strong>
+              <span>Play a soft cue for moves and matches</span>
+            </span>
+          </label>
+          <div class="settings-color-key" aria-label="Color identifiers">
+            <span><i class="legend-dot red"></i> Red · Circle</span>
+            <span><i class="legend-dot blue"></i> Blue · Diamond</span>
+            <span><i class="legend-dot green"></i> Green · Triangle</span>
+            <span><i class="legend-dot yellow"></i> Yellow · Star</span>
+          </div>
+          <button class="button button-secondary back-button" type="button">← BACK</button>
+        </div>
+      </section>
+
+      <section class="app-screen gameplay-screen" id="game-screen" aria-label="Color Grid gameplay" hidden>
+        <div class="game-topline">
+          <div class="run-title"><span class="eyebrow-dot"></span><span>ARCADE RUN</span><strong>PUZZLE <span id="round-number">01</span></strong></div>
+          <div class="game-controls">
+            <button class="button button-secondary sound-button" id="sound-toggle" type="button" aria-pressed="false" aria-label="Turn sound on">♫ <span>SOUND OFF</span></button>
+            <button class="button button-secondary settings-button" id="game-settings-button" type="button" aria-label="Open settings">⚙ <span>SETTINGS</span></button>
+            <button class="button button-secondary pause-button" id="pause-button" type="button" aria-label="Pause game">Ⅱ <span>PAUSE</span></button>
+          </div>
+        </div>
+
+        <section class="game-card" aria-label="Color Grid puzzle">
+          <div class="hud-grid">
+            <div class="timer-card" id="timer-stat">
+              <span class="overline">TIME LEFT</span>
+              <strong id="timer" aria-live="off">03:00</strong>
+              <span class="timer-caption">MAKE EVERY SECOND COUNT</span>
+              <span class="time-reward" id="time-reward" aria-hidden="true">+10 sec</span>
+            </div>
+            <div class="hud-stats" aria-label="Game statistics">
+              <div class="hud-stat score-stat"><span class="overline">SCORE</span><strong id="score" aria-live="polite">0</strong></div>
+              <div class="hud-stat"><span class="overline">BEST</span><strong id="best-score">0</strong></div>
+              <div class="hud-stat"><span class="overline">MOVES</span><strong id="move-count" aria-live="polite">0</strong></div>
+              <div class="hud-stat"><span class="overline">MATCHES</span><strong id="puzzle-count" aria-live="polite">0</strong></div>
+            </div>
+            <div class="progress-card">
+              <div class="progress-label"><span class="overline">COLORED TILES</span><strong id="progress-value">9 / 25</strong></div>
+              <div class="progress-track" role="progressbar" id="progress-bar" aria-label="Progress to filling the current board" aria-valuemin="0" aria-valuemax="25" aria-valuenow="9"><span id="progress-fill"></span></div>
+              <span id="next-unlock">Next puzzle adds 1 tile</span>
+            </div>
+          </div>
+
+          <div class="boards">
+            <section class="board-section target-section" aria-labelledby="target-heading">
+              <div class="board-heading">
+                <div><h2 id="target-heading">Target pattern</h2><p id="target-subtitle">Match this pattern in the center zone</p></div>
+                <span class="board-badge">GOAL</span>
+              </div>
+              <div class="tile-grid target-grid" id="target-grid" role="group" aria-label="Target pattern"></div>
+              <p class="target-match-progress" id="target-match-progress" role="status" aria-live="polite">0 / 9 matched</p>
+              <div class="target-color-key" aria-label="Pattern color key">
+                <span><i class="legend-dot red"></i> R · Red</span><span><i class="legend-dot blue"></i> B · Blue</span>
+                <span><i class="legend-dot green"></i> G · Green</span><span><i class="legend-dot yellow"></i> Y · Yellow</span>
+              </div>
+            </section>
+            <section class="board-section player-section" aria-labelledby="player-heading">
+              <div class="board-heading">
+                <div><h2 id="player-heading">Your <span id="board-dimensions">5 × 5</span> board</h2><p id="grid-hint">Drag along a row or column toward an empty cell</p></div>
+                <span class="board-badge player-badge" id="matching-dimensions">CENTER 3 × 3</span>
+              </div>
+              <div class="tile-grid player-grid" id="player-grid" role="group" aria-label="Sliding puzzle board"></div>
+            </section>
+          </div>
+
+          <div class="game-footer">
+            <p class="status-message" id="status-message" role="status" aria-live="polite"><span class="status-indicator" aria-hidden="true"></span>Ready when you are. Your 180 seconds start on your first move.</p>
+          </div>
+
+          <div class="success-overlay" id="success-overlay" aria-live="polite" hidden>
+            <div class="success-content">
+              <p class="success-kicker">CENTER PATTERN CLEARED</p><h2>PERFECT MATCH!</h2>
+              <div class="success-rewards"><strong id="reward-final-points">+100 POINTS</strong><span id="reward-time">+15 SECONDS</span></div>
+              <div class="reward-breakdown" aria-label="Score breakdown">
+                <span>BASE <strong id="reward-base">100</strong></span>
+                <span>SPEED <strong id="reward-speed">0</strong></span>
+                <span>EFFICIENCY <strong id="reward-efficiency">0</strong></span>
+              </div>
+              <p class="new-high-score-banner" id="new-high-score-banner" hidden><span aria-hidden="true">★</span> NEW HIGH SCORE!</p>
+            </div>
+            <div class="success-particles" id="success-particles" aria-hidden="true"></div>
+          </div>
+
+          <div class="pause-overlay" id="pause-overlay" role="dialog" aria-labelledby="pause-title" aria-modal="true" hidden>
+            <div class="pause-content">
+              <span class="pause-icon" aria-hidden="true">Ⅱ</span><p class="overline">TAKE YOUR TIME</p>
+              <h2 id="pause-title">PAUSED</h2><p>Your puzzle is right where you left it.</p>
+              <button class="button button-primary resume-button" id="resume-button" type="button">▶ RESUME GAME</button>
+              <button class="text-button" id="pause-settings-button" type="button">Settings</button>
+              <button class="text-button" id="quit-button" type="button">Return to menu</button>
+            </div>
+          </div>
+
+          <div class="unlock-overlay" id="unlock-overlay" role="dialog" aria-labelledby="unlock-title" aria-modal="true" hidden>
+            <div class="unlock-content"><span aria-hidden="true">✦</span><p class="overline">NEW BOARD UNLOCKED</p>
+              <h2 id="unlock-title">BIGGER GRID!</h2><p id="unlock-description">A fresh challenge awaits.</p>
+              <button class="button button-primary" id="unlock-continue-button" type="button">LET'S GO →</button>
+            </div>
+          </div>
+
+          <div class="game-over-panel" id="game-over-panel" role="dialog" aria-labelledby="game-over-title" aria-modal="true" hidden>
+            <div class="game-over-content">
+              <span class="game-over-mark" aria-hidden="true">✦</span><p class="overline">TIME'S UP</p><h2 id="game-over-title">GAME OVER</h2>
+              <div class="personal-best-banner" id="personal-best-banner" hidden><span class="trophy" aria-hidden="true">🏆</span><strong>NEW PERSONAL BEST!</strong></div>
+              <p class="game-over-copy">Great run! Here's how you did:</p>
+              <div class="final-stats">
+                <div><span>FINAL SCORE</span><strong id="final-score">0</strong></div><div><span>BEST SCORE</span><strong id="final-best-score">0</strong></div>
+                <div><span>PUZZLES</span><strong id="final-puzzles">0</strong></div><div><span>TOTAL MOVES</span><strong id="final-moves">0</strong></div>
+              </div>
+              <button class="button button-primary play-again-button" id="play-again-button" type="button"><span aria-hidden="true">↻</span> Play Again</button>
+              <button class="text-button" id="game-over-menu-button" type="button">Return to menu</button>
+            </div>
+          </div>
+        </section>
+      </section>
+      <footer class="page-footer"><span>THINK IN COLOR <span class="footer-dot">·</span> BEAT THE CLOCK</span><span>MADE FOR YOUR NEXT GREAT RUN</span></footer>
+    </main>
+  </body>
+</html>
